@@ -1,96 +1,69 @@
-import { useState } from 'react';
+import InfoInput from './input'
+import DisplayInfo from './display-info'
+import '../styles/main.css'
 
-export default function GeneralInfo() {
-    const [genInfo, setGenInfo] = useState({ firstName: '', lastName: '', email: '', phone: '' });
+export default function GeneralInfo({ genInfo, setGenInfo }) {
 
-    function handleChanges() {
-        const firstName = document.getElementById('first-name').value;
-        const lastName = document.getElementById('last-name').value;
-        const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
-        
-        setGenInfo({ firstName, lastName, email, phone });
+    function handleChanges(id, value) {
+      setGenInfo(prevState => ({
+        ...prevState,
+        [id]: value
+      }));
+    }
+
+    let inputsLocked = false;
+    function toggleLock() {
+      const lockButton = document.getElementById('lock-general-button');
+      const firstName = document.getElementById('firstName');
+      const lastName = document.getElementById('lastName');
+      const email = document.getElementById('email');
+      const phone = document.getElementById('phone');
+      
+      if (!inputsLocked) {
+        inputsLocked = true;
+        firstName.disabled = true;
+        lastName.disabled = true;
+        email.disabled = true;
+        phone.disabled = true;
+        lockButton.textContent = 'Unlock Section';
+      } else {
+        inputsLocked = false;
+        firstName.disabled = false;
+        lastName.disabled = false;
+        email.disabled = false;
+        phone.disabled = false;
+        lockButton.textContent = 'Lock Section';
+      }
     }
 
     return (
         <>
-          <div className="general-info-inputs">
-            <NameInput 
-              id="first-name"
+          <div className="inputs-block">
+            <h3>General Information</h3>
+            <InfoInput 
+              id="firstName"
               label="First Name:"
-              placeholder="Someone"
+              onChange={handleChanges}
             />
-            <NameInput
-              id="last-name"
+            <InfoInput
+              id="lastName"
               label="Last Name:"
-              placeholder="Something"
+              onChange={handleChanges}
             />
-            <EmailInput
+            <InfoInput
               id="email"
               label="Email:"
+              placeholder='person@place.com'
+              onChange={handleChanges}
             />
-            <PhoneInput 
+            <InfoInput 
               id="phone"
               label="Phone Number:"
+              placeholder='555-555-5555'
+              onChange={handleChanges}
             />
-            <button onClick={handleChanges}>Submit</button>
-          </div>
-          <div className="general-info-display">
-            <h2>{genInfo.firstName} {genInfo.lastName}</h2>
-            <h3>Email: {genInfo.email}</h3>
-            <h3>Phone: {genInfo.phone}</h3>
+            <button type="button" id="lock-general-button" onClick={toggleLock}>Lock</button>
           </div>
         </>
-    )
-}
-
-function NameInput({ id, label, placeholder }) {
-
-    return (
-        <div>
-          <label>
-            {label}
-            {' '}
-            <input 
-              id={id}
-              type='text'
-              placeholder={placeholder}
-            />
-          </label>
-        </div>
-    )
-}
-
-function EmailInput({ id, label }) {
-
-    return (
-        <div>
-          <label>
-            {label}
-            {' '}
-            <input 
-              id={id}
-              type='email'
-              placeholder='person@place.com'
-            />
-          </label>
-        </div>
-    )
-}
-
-function PhoneInput({ id, label }) {
-
-    return (
-        <div>
-          <label>
-            {label}
-            {' '}
-            <input 
-              id={id}
-              type='tel'
-              placeholder='555-555-5555'
-            />
-          </label>
-        </div>
     )
 }
