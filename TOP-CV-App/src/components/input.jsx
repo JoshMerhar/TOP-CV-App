@@ -1,4 +1,8 @@
-export default function InfoInput({ id, label, placeholder, onChange }) {
+export default function InfoInput({ label, id, value, placeholder, onChange }) {
+
+    function handleChange(event) {
+      onChange(event.target.value);
+    }
 
     return (
         <div>
@@ -6,11 +10,12 @@ export default function InfoInput({ id, label, placeholder, onChange }) {
             {label}
             {' '}
             <input 
-              id={id}
               type="text"
+              id={id}
+              value={value}
               placeholder={placeholder}
               maxLength="30"
-              onChange={(e) => onChange(id, e.target.value)}
+              onChange={handleChange}
             />
           </label>
         </div>

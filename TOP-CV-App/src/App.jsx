@@ -6,14 +6,18 @@ import '../src/styles/main.css'
 
 export default function App() {
   const [genInfo, setGenInfo] = useState({ firstName: 'FirstName', lastName: 'LastName', email: '', phone: '' });
-  const [educationInfo, setEducationInfo] = useState({ school: '', degree: '', fromYear: '', toYear: '' });
+  const [educationInfo, setEducationInfo] = useState([]);
+
+  function handleEducationChange(newEducationInfo) {
+    setEducationInfo(newEducationInfo);
+  }
 
   return (
     <>
       <div className="container">
         <div className="inputs">
           <GeneralInfo genInfo={genInfo} setGenInfo={setGenInfo} />
-          <EducationInfo educationInfo={educationInfo} setEducationInfo={setEducationInfo} />
+          <EducationInfo educationInfo={educationInfo} setEducationInfo={handleEducationChange} />
         </div>
         <div className="main-display">
           <DisplayInfo genInfo={genInfo} educationInfo={educationInfo} />

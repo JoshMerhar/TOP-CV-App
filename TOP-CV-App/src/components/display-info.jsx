@@ -8,12 +8,15 @@ export default function DisplayInfo({ genInfo, educationInfo }) {
       </div>
       <div className="education-info-display">
         <h1>Education</h1>
-        <h3>{educationInfo.school}</h3>
-        <p>
-          {educationInfo.degree}<br></br>
-          {educationInfo.fromYear} - {educationInfo.toYear}
-        </p>
-
+        {educationInfo.map((education) => (
+          <div key={education.id}>
+            <h3>{education.school}</h3>
+            <p>
+              {education.degree}<br></br>
+              {education.fromYear} - {education.toYear}
+            </p>
+            </div>
+          ))}
       </div>
     </>
   )

@@ -1,5 +1,4 @@
 import InfoInput from './input'
-import DisplayInfo from './display-info'
 import '../styles/main.css'
 
 export default function GeneralInfo({ genInfo, setGenInfo }) {
@@ -43,24 +42,24 @@ export default function GeneralInfo({ genInfo, setGenInfo }) {
             <InfoInput 
               id="firstName"
               label="First Name:"
-              onChange={handleChanges}
+              onChange={(value) => handleChanges('firstName', value)}
             />
             <InfoInput
               id="lastName"
               label="Last Name:"
-              onChange={handleChanges}
+              onChange={(value) => handleChanges('lastName', value)}
             />
             <InfoInput
               id="email"
               label="Email:"
               placeholder='person@place.com'
-              onChange={handleChanges}
+              onChange={(value) => handleChanges('email', value)}
             />
             <InfoInput 
               id="phone"
               label="Phone Number:"
               placeholder='555-555-5555'
-              onChange={handleChanges}
+              onChange={(value) => handleChanges('phone', value)}
             />
             <button type="button" id="lock-general-button" onClick={toggleLock}>Lock</button>
           </div>
