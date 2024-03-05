@@ -1,4 +1,4 @@
-export default function DisplayInfo({ genInfo, educationInfo }) {
+export default function DisplayInfo({ genInfo, educationInfo, workInfo }) {
   return (
     <>
       <div className="general-info-display">
@@ -17,6 +17,19 @@ export default function DisplayInfo({ genInfo, educationInfo }) {
             </p>
             </div>
           ))}
+      </div>
+      <div className="work-info-display">
+        <h1>Work History</h1>
+        {workInfo.map((job) => (
+          <div key={job.id}>
+            <h3>{job.employer}</h3>
+            <p>
+              <strong>{job.title}</strong><br></br>
+              {job.startDate} - {job.endDate}<br></br>
+              {job.description}
+            </p>
+          </div>
+        ))}
       </div>
     </>
   )

@@ -32,6 +32,16 @@ body {
     float: right;
 }
 
+.job-description-text-area {
+    display: flex;
+    justify-content: space-between;
+}
+
+#job-description {
+    min-width: 50%;
+    height: 3rem;
+}
+
 .main-display {
     grid-column: 4 / 11;
     background-color: whitesmoke;
@@ -45,6 +55,7 @@ body {
     background-color: aquamarine;
 }
 
-.education-info-display {
+.education-info-display,
+.work-info-display {
     padding: 2.5rem;
 }
