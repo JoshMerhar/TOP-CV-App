@@ -8,6 +8,11 @@ body {
     min-height: 100vh;
 }
 
+h1, h2, h3 {
+    display: block;
+    line-height: 1;
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -46,7 +51,8 @@ button {
     width: 100%;
 }
 
-.education-buttons {
+.education-buttons,
+.work-buttons {
     display: none;
 }
 
@@ -64,6 +70,7 @@ button {
     grid-column: 4 / 11;
     background-color: whitesmoke;
     margin: .5rem;
+    height: fit-content;
 }
 
 .general-info-display {

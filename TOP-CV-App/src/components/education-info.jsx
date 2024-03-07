@@ -24,9 +24,8 @@ export default function EducationInfo({ educationInfo, setEducationInfo }) {
     }
 
     function handleSubmit() {
-      setEditMode(false);
       setEducationInfo(formData);
-      console.log(formData);
+      setEditMode(false);
     }
 
     function editForm() {
