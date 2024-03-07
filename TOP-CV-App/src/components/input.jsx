@@ -1,4 +1,4 @@
-export default function InfoInput({ label, id, value, placeholder, onChange }) {
+export default function InfoInput({ label, id, value, placeholder, disabled, onChange }) {
 
     function handleChange(event) {
       onChange(event.target.value);
@@ -14,6 +14,7 @@ export default function InfoInput({ label, id, value, placeholder, onChange }) {
               id={id}
               value={value}
               placeholder={placeholder}
+              disabled={disabled}
               maxLength="30"
               onChange={handleChange}
             />

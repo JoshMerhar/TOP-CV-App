@@ -1,38 +1,26 @@
+import { useState } from 'react'
 import InfoInput from './input'
 import '../styles/main.css'
 
 export default function GeneralInfo({ genInfo, setGenInfo }) {
 
+    const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', phone: ''  })
+    const [editMode, setEditMode] = useState(true);
+
     function handleChanges(id, value) {
-      setGenInfo(prevState => ({
-        ...prevState,
+      setFormData(prevData => ({
+        ...prevData,
         [id]: value
       }));
     }
 
-    let inputsLocked = false;
-    function toggleLock() {
-      const lockButton = document.getElementById('lock-general-button');
-      const firstName = document.getElementById('firstName');
-      const lastName = document.getElementById('lastName');
-      const email = document.getElementById('email');
-      const phone = document.getElementById('phone');
-      
-      if (!inputsLocked) {
-        inputsLocked = true;
-        firstName.disabled = true;
-        lastName.disabled = true;
-        email.disabled = true;
-        phone.disabled = true;
-        lockButton.textContent = 'Unlock Section';
-      } else {
-        inputsLocked = false;
-        firstName.disabled = false;
-        lastName.disabled = false;
-        email.disabled = false;
-        phone.disabled = false;
-        lockButton.textContent = 'Lock Section';
-      }
+    function handleSubmit() {
+      setGenInfo(formData);
+      setEditMode(false);
+    }
+
+    function editForm() {
+      setEditMode(true);
     }
 
     return (
@@ -42,26 +30,33 @@ export default function GeneralInfo({ genInfo, setGenInfo }) {
             <InfoInput 
               id="firstName"
               label="First Name:"
+              disabled={!editMode}
               onChange={(value) => handleChanges('firstName', value)}
             />
             <InfoInput
               id="lastName"
               label="Last Name:"
+              disabled={!editMode}
               onChange={(value) => handleChanges('lastName', value)}
             />
             <InfoInput
               id="email"
               label="Email:"
               placeholder='person@place.com'
+              disabled={!editMode}
               onChange={(value) => handleChanges('email', value)}
             />
             <InfoInput 
               id="phone"
               label="Phone Number:"
               placeholder='555-555-5555'
+              disabled={!editMode}
               onChange={(value) => handleChanges('phone', value)}
             />
-            <button type="button" id="lock-general-button" onClick={toggleLock}>Lock</button>
+            <div className="buttons-container">
+              <button type="button" id="submit-general-button" onClick={handleSubmit}>Submit</button>
+              <button type="button" id="edit-general-button" onClick={editForm}>Edit</button>
+            </div>
           </div>
         </>
     )
