@@ -7,6 +7,7 @@ export default function WorkInfo({ workInfo, setWorkInfo }) {
 
     const [formData, setFormData] = useState([...workInfo])
     const [editMode, setEditMode] = useState(true);
+    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
       setFormData([...workInfo]);
@@ -71,12 +72,19 @@ export default function WorkInfo({ workInfo, setWorkInfo }) {
       }
     }
 
+    function handleVisibleChange() {
+      setIsVisible(!isVisible);
+    }
+
     return (
         <>
           <div className="inputs-block">
-            <h3>Work Information</h3>
+            <div className="inputs-header">
+              <h3>Work Information</h3>
+              <span className="toggle-visibility" onClick={handleVisibleChange}>{ isVisible ? 'Hide' : 'Show' }</span>
+            </div>
             {workInfo.map((job, index) => (
-              <div key={job.id} className="inputs-block">
+              <div key={job.id} className="inputs-block" style={{ display: isVisible ? 'flex' : 'none' }}>
                 <InfoInput 
                   id={`employer-${index}`}
                   label="Employer:"
@@ -114,11 +122,13 @@ export default function WorkInfo({ workInfo, setWorkInfo }) {
                 <button type="button" id="remove-work-button" onClick={() => removeWorkSection(index)}>Remove Job</button>
               </div>
             ))}
-            <div className="buttons-container work-buttons">
-              <button type="button" id="submit-work-button" onClick={handleSubmit}>Submit</button>
-              <button type="button" id="edit-work-button" onClick={editForm}>Edit</button>
+            <div className="input-component" style={{ display: isVisible ? 'flex' : 'none' }}>
+              <div className="buttons-container work-buttons">
+                <button type="button" id="submit-work-button" onClick={handleSubmit}>Submit</button>
+                <button type="button" id="edit-work-button" onClick={editForm}>Edit</button>
+              </div>
+              <button type="button" id="add-work-button" onClick={addWorkSection}>Add Job</button>
             </div>
-            <button type="button" id="add-work-button" onClick={addWorkSection}>Add Job</button>
           </div>
         </>
     )
