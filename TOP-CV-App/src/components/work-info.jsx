@@ -80,7 +80,7 @@ export default function WorkInfo({ workInfo, setWorkInfo }) {
         <>
           <div className="inputs-block">
             <div className="inputs-header">
-              <h3>Work Information</h3>
+              <div className="input-block-title">Work Information</div>
               <span className="toggle-visibility" onClick={handleVisibleChange}>{ isVisible ? 'Hide' : 'Show' }</span>
             </div>
             {workInfo.map((job, index) => (
@@ -119,15 +119,15 @@ export default function WorkInfo({ workInfo, setWorkInfo }) {
                     disabled={!editMode}
                     onChange={(event) => handleChanges(index, 'description', event.target.value)}></textarea>
                 </div>
-                <button type="button" id="remove-work-button" onClick={() => removeWorkSection(index)}>Remove Job</button>
+                <button type="button" id="remove-work-button" onClick={() => removeWorkSection(index)}>Remove</button>
               </div>
             ))}
             <div className="input-component" style={{ display: isVisible ? 'flex' : 'none' }}>
               <div className="buttons-container work-buttons">
-                <button type="button" id="submit-work-button" onClick={handleSubmit}>Submit</button>
-                <button type="button" id="edit-work-button" onClick={editForm}>Edit</button>
+                <button type="button" id="submit-work-button" className="submit-button" onClick={handleSubmit}>Submit</button>
+                <button type="button" id="edit-work-button" className="edit-button" onClick={editForm}>Edit</button>
               </div>
-              <button type="button" id="add-work-button" onClick={addWorkSection}>Add Job</button>
+              <button type="button" id="add-work-button" className="add-section-button" onClick={addWorkSection}>Add Job</button>
             </div>
           </div>
         </>

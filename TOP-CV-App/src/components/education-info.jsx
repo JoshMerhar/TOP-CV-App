@@ -79,7 +79,7 @@ export default function EducationInfo({ educationInfo, setEducationInfo }) {
       <>
         <div className="inputs-block">
           <div className="inputs-header">
-            <h3>Education Information</h3>
+            <div className="input-block-title">Education Information</div>
             <span className="toggle-visibility" onClick={handleVisibleChange}>{ isVisible ? 'Hide' : 'Show' }</span>
           </div>
           {educationInfo.map((education, index) => (
@@ -115,10 +115,10 @@ export default function EducationInfo({ educationInfo, setEducationInfo }) {
           ))}
           <div className="input-component" style={{ display: isVisible ? 'flex' : 'none' }}>
             <div className="buttons-container education-buttons">
-              <button type="button" id="submit-education-button" onClick={handleSubmit}>Submit</button>
-              <button type="button" id="edit-education-button" onClick={editForm}>Edit</button>
+              <button type="button" id="submit-education-button" className="submit-button" onClick={handleSubmit}>Submit</button>
+              <button type="button" id="edit-education-button" className="edit-button" onClick={editForm}>Edit</button>
             </div>
-            <button type="button" id="add-education-button" onClick={addEducationSection}>Add Education</button>
+            <button type="button" id="add-education-button" className="add-section-button" onClick={addEducationSection}>Add Education</button>
           </div>
         </div>
       </>

@@ -32,7 +32,7 @@ export default function GeneralInfo({ genInfo, setGenInfo }) {
         <>
           <div className="inputs-block">
             <div className="inputs-header">
-              <h3>General Information</h3>
+              <div className="input-block-title">General Information</div>
               <span className="toggle-visibility" onClick={handleVisibleChange}>{ isVisible ? 'Hide' : 'Show' }</span>
             </div>
             <div className="input-component" style={{ display: isVisible ? 'block' : 'none' }}>
@@ -71,8 +71,8 @@ export default function GeneralInfo({ genInfo, setGenInfo }) {
             </div>
             <div className="input-component" style={{ display: isVisible ? 'block' : 'none' }}>
               <div className="buttons-container">
-                <button type="button" id="submit-general-button" onClick={handleSubmit}>Submit</button>
-                <button type="button" id="edit-general-button" onClick={editForm}>Edit</button>
+                <button type="button" id="submit-general-button" className="submit-button" onClick={handleSubmit}>Submit</button>
+                <button type="button" id="edit-general-button" className="edit-button" onClick={editForm}>Edit</button>
               </div>
             </div>
           </div>

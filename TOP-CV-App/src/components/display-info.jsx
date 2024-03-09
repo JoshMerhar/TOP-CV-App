@@ -14,7 +14,7 @@ export default function DisplayInfo({ genInfo, educationInfo, workInfo }) {
               <h3>{education.school}</h3>
               <p>
                 {education.degree}<br></br>
-                {education.fromYear} - {education.toYear}
+                <em>{education.fromYear} - {education.toYear}</em>
               </p>
               </div>
             ))}
@@ -26,7 +26,7 @@ export default function DisplayInfo({ genInfo, educationInfo, workInfo }) {
               <h3>{job.employer}</h3>
               <p>
                 <strong>{job.title}</strong><br></br>
-                {job.startDate} - {job.endDate}<br></br>
+                <em>{job.startDate} - {job.endDate}</em><br></br>
                 {job.description}
               </p>
             </div>

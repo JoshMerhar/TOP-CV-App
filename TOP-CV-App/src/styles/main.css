@@ -16,6 +16,12 @@ h1, h2, h3 {
     line-height: 1;
 }
 
+.input-block-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -35,6 +41,7 @@ h1, h2, h3 {
 .inputs-block {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     padding: 1rem;
     border: 2px solid black;
     border-radius: 5px;
@@ -63,24 +70,88 @@ h1, h2, h3 {
     gap: 5px;
 }
 
+.inputs-block div label {
+    font-size: 20px;
+}
+
 .inputs-block div label input {
     float: right;
     width: 50%;
+    outline: none;
+    border: none;
+    border-style: none;
+    background-color: lightcyan;
+    transition: .15s;
+    font-size: 16px;
+}
+
+input:hover,
+input:focus,
+textarea:hover,
+textarea:focus {
+    box-shadow: 0 2px 0 lightgreen;
+}
+
+.inputs-block div label input:disabled,
+textarea:disabled {
+    background-color: lightgray;
+    box-shadow: none;
 }
 
 .buttons-container {
     display: flex;
     justify-content: center;
+    margin: auto;
+    width: 75%;
+    gap: 10px;
 }
 
 button {
     display: block;
-    width: 100%;
+    place-self: center;
+    width: 50%;
+    border-style: none;
+    border-radius: 8px;
+    transition: .2s;
+}
+
+button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.submit-button,
+.edit-button,
+.add-section-button {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.submit-button {
+    background-color: lightgreen;
+}
+
+.edit-button {
+    background-color: lightblue;
+}
+
+.add-section-button {
+    background-color: steelblue;
+    color: whitesmoke;
 }
 
 .education-buttons,
 .work-buttons {
     display: none;
+    width: 50%;
+}
+
+#remove-education-button,
+#remove-work-button {
+    background-color: lightcoral;
+    width: 33%;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .job-description-text-area {
@@ -91,7 +162,12 @@ button {
 textarea {
     width: 75%;
     height: 4rem;
+    font-size: 16px;
     resize: none;
+    background-color: lightcyan;
+    border: none;
+    outline: none;
+    transition: .15s;
 }
 
 .main-display {
