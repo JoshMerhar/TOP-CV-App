@@ -7,7 +7,6 @@
 
 body {
     margin: auto;
-    max-width: 1440px;
     min-height: 100vh;
 }
 
@@ -16,24 +15,33 @@ h1, h2, h3 {
     line-height: 1;
 }
 
+.top-banner {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    background-color: plum;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    padding: 2rem 0;
+    max-width: 1440px;
+    margin: auto;
+}
+
 .input-block-title {
     font-size: 30px;
     font-weight: bold;
     margin: 10px 0;
 }
 
-.container {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    padding: 2rem;
-}
-
 .inputs {
     display: flex;
     flex-direction: column;
     grid-column: 1 / 5;
-    padding: .5rem;
-    border: 2px solid black;
     gap: .5rem;
     height: fit-content;
 }
@@ -109,7 +117,7 @@ textarea:disabled {
 button {
     display: block;
     place-self: center;
-    width: 50%;
+    width: 75%;
     border-style: none;
     border-radius: 8px;
     transition: .2s;
@@ -132,7 +140,7 @@ button:hover {
 }
 
 .edit-button {
-    background-color: lightblue;
+    background-color: gold;
 }
 
 .add-section-button {
@@ -143,7 +151,6 @@ button:hover {
 .education-buttons,
 .work-buttons {
     display: none;
-    width: 50%;
 }
 
 #remove-education-button,
@@ -172,13 +179,15 @@ textarea {
 
 .main-display {
     grid-column: 5 / 11;
+    padding: 0 .5rem;
 }
 
 .document-display {
-    margin: 0 .5rem;
+    margin: auto;
     height: auto;
     width: 100%;
     background-color: whitesmoke;
+    border-radius: 0 0 8px 8px;
 }
 
 .general-info-display {
@@ -187,9 +196,39 @@ textarea {
     align-items: center;
     padding: 0 2rem;
     background-color: aquamarine;
+    border-radius: 8px 8px 0 0;
 }
 
 .education-info-display,
 .work-info-display {
     padding: 1rem 2.5rem;
+}
+
+@media (max-width: 1080px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .input-block-title {
+        font-size: 22px;
+    }
+
+    .submit-button,
+    .edit-button,
+    .add-section-button {
+        font-size: 20px;
+    }
+
+    .inputs {
+        width: 100%;
+        padding: 0 .5rem;
+    }
+
+    .main-display {
+        width: 100%;
+        padding: .5rem;
+    }
 }

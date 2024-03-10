@@ -16,6 +16,7 @@ export default function App() {
 
   return (
     <>
+      <div className="top-banner"><em>*~-CV Builder-~*</em></div>
       <div className="container">
         <div className="inputs">
           <GeneralInfo genInfo={genInfo} setGenInfo={setGenInfo} />
