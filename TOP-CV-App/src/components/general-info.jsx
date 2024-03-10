@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import InfoInput from './input'
 import '../styles/main.css'
 
@@ -7,6 +7,7 @@ export default function GeneralInfo({ genInfo, setGenInfo }) {
     const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', phone: ''  })
     const [editMode, setEditMode] = useState(true);
     const [isVisible, setIsVisible] = useState(true);
+    const [showInputs, setShowInputs] = useState(true);
 
     function handleChanges(id, value) {
       setFormData(prevData => ({
@@ -26,7 +27,19 @@ export default function GeneralInfo({ genInfo, setGenInfo }) {
 
     function handleVisibleChange() {
       setIsVisible(!isVisible);
+      setEditMode(false);
     }
+
+    useEffect(() => {
+      if (isVisible) {
+        const timeout = setTimeout(() => {
+          setShowInputs(isVisible);
+        }, 500);
+        return () => clearTimeout(timeout);
+      } else {
+        setShowInputs(false);
+      }
+    }, [isVisible]);
 
     return (
         <>
@@ -35,23 +48,19 @@ export default function GeneralInfo({ genInfo, setGenInfo }) {
               <div className="input-block-title">General Information</div>
               <span className="toggle-visibility" onClick={handleVisibleChange}>{ isVisible ? 'Hide' : 'Show' }</span>
             </div>
-            <div className="input-component" style={{ display: isVisible ? 'block' : 'none' }}>
+            <div className="input-component" style={{ maxHeight: isVisible ? '100vh' : '0px', overflow: showInputs ? 'visible' : 'hidden' }}>
               <InfoInput 
                 id="firstName"
                 label="First Name:"
                 disabled={!editMode}
                 onChange={(value) => handleChanges('firstName', value)}
               />
-            </div>
-            <div className="input-component" style={{ display: isVisible ? 'block' : 'none' }}>
               <InfoInput
                 id="lastName"
                 label="Last Name:"
                 disabled={!editMode}
                 onChange={(value) => handleChanges('lastName', value)}
               />
-            </div>
-            <div className="input-component" style={{ display: isVisible ? 'block' : 'none' }}>
               <InfoInput
                 id="email"
                 label="Email:"
@@ -59,8 +68,6 @@ export default function GeneralInfo({ genInfo, setGenInfo }) {
                 disabled={!editMode}
                 onChange={(value) => handleChanges('email', value)}
               />
-            </div>
-            <div className="input-component" style={{ display: isVisible ? 'block' : 'none' }}>
               <InfoInput 
                 id="phone"
                 label="Phone Number:"
@@ -68,8 +75,6 @@ export default function GeneralInfo({ genInfo, setGenInfo }) {
                 disabled={!editMode}
                 onChange={(value) => handleChanges('phone', value)}
               />
-            </div>
-            <div className="input-component" style={{ display: isVisible ? 'block' : 'none' }}>
               <div className="buttons-container">
                 <button type="button" id="submit-general-button" className="submit-button" onClick={handleSubmit}>Submit</button>
                 <button type="button" id="edit-general-button" className="edit-button" onClick={editForm}>Edit</button>

@@ -8,6 +8,7 @@ export default function EducationInfo({ educationInfo, setEducationInfo }) {
     const [formData, setFormData] = useState([...educationInfo])
     const [editMode, setEditMode] = useState(true);
     const [isVisible, setIsVisible] = useState(true);
+    const [showInputs, setShowInputs] = useState(true);
 
     useEffect(() => {
       setFormData([...educationInfo]);
@@ -73,7 +74,19 @@ export default function EducationInfo({ educationInfo, setEducationInfo }) {
 
     function handleVisibleChange() {
       setIsVisible(!isVisible);
+      setEditMode(false);
     }
+
+    useEffect(() => {
+      if (isVisible) {
+        const timeout = setTimeout(() => {
+          setShowInputs(isVisible);
+        }, 500);
+        return () => clearTimeout(timeout);
+      } else {
+        setShowInputs(false);
+      }
+    }, [isVisible]);
 
     return (
       <>
@@ -82,42 +95,42 @@ export default function EducationInfo({ educationInfo, setEducationInfo }) {
             <div className="input-block-title">Education Information</div>
             <span className="toggle-visibility" onClick={handleVisibleChange}>{ isVisible ? 'Hide' : 'Show' }</span>
           </div>
-          {educationInfo.map((education, index) => (
-            <div key={education.id} className="inputs-block" style={{ display: isVisible ? 'flex' : 'none' }}>
-              <InfoInput
-                id={`school-${index}`}
-                label="School:"
-                disabled={!editMode}
-                onChange={(value) => handleChanges(index, 'school', value)}
-              />
-              <InfoInput
-                id={`degree-${index}`}
-                label="Degree:"
-                disabled={!editMode}
-                onChange={(value) => handleChanges(index, 'degree', value)}
-              />
-              <InfoInput
-                id={`fromYear-${index}`}
-                label="From:"
-                placeholder="Start Year"
-                disabled={!editMode}
-                onChange={(value) => handleChanges(index, 'fromYear', value)}
-              />
-              <InfoInput
-                id={`toYear-${index}`}
-                label="To:"
-                placeholder="End Year"
-                disabled={!editMode}
-                onChange={(value) => handleChanges(index, 'toYear', value)}
-              />
-              <button type="button" id="remove-education-button" onClick={() => removeEducationSection(index)}>Remove</button>
-            </div>
-          ))}
-          <div className="input-component" style={{ display: isVisible ? 'flex' : 'none' }}>
-            <div className="buttons-container education-buttons">
-              <button type="button" id="submit-education-button" className="submit-button" onClick={handleSubmit}>Submit</button>
-              <button type="button" id="edit-education-button" className="edit-button" onClick={editForm}>Edit</button>
-            </div>
+          <div className="input-component" style={{ maxHeight: isVisible ? '100vh' : '0px', overflow: showInputs ? 'visible' : 'hidden' }}>
+            {educationInfo.map((education, index) => (
+              <div key={education.id} className="inputs-block">
+                <InfoInput
+                  id={`school-${index}`}
+                  label="School:"
+                  disabled={!editMode}
+                  onChange={(value) => handleChanges(index, 'school', value)}
+                />
+                <InfoInput
+                  id={`degree-${index}`}
+                  label="Degree:"
+                  disabled={!editMode}
+                  onChange={(value) => handleChanges(index, 'degree', value)}
+                />
+                <InfoInput
+                  id={`fromYear-${index}`}
+                  label="From:"
+                  placeholder="Start Year"
+                  disabled={!editMode}
+                  onChange={(value) => handleChanges(index, 'fromYear', value)}
+                />
+                <InfoInput
+                  id={`toYear-${index}`}
+                  label="To:"
+                  placeholder="End Year"
+                  disabled={!editMode}
+                  onChange={(value) => handleChanges(index, 'toYear', value)}
+                />
+                <button type="button" id="remove-education-button" onClick={() => removeEducationSection(index)}>Remove</button>
+              </div>
+            ))}
+              <div className="buttons-container education-buttons">
+                <button type="button" id="submit-education-button" className="submit-button" onClick={handleSubmit}>Submit</button>
+                <button type="button" id="edit-education-button" className="edit-button" onClick={editForm}>Edit</button>
+              </div>
             <button type="button" id="add-education-button" className="add-section-button" onClick={addEducationSection}>Add Education</button>
           </div>
         </div>

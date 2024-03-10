@@ -8,6 +8,7 @@ export default function WorkInfo({ workInfo, setWorkInfo }) {
     const [formData, setFormData] = useState([...workInfo])
     const [editMode, setEditMode] = useState(true);
     const [isVisible, setIsVisible] = useState(true);
+    const [showInputs, setShowInputs] = useState(true);
 
     useEffect(() => {
       setFormData([...workInfo]);
@@ -74,7 +75,19 @@ export default function WorkInfo({ workInfo, setWorkInfo }) {
 
     function handleVisibleChange() {
       setIsVisible(!isVisible);
+      setEditMode(false);
     }
+
+    useEffect(() => {
+      if (isVisible) {
+        const timeout = setTimeout(() => {
+          setShowInputs(isVisible);
+        }, 500);
+        return () => clearTimeout(timeout);
+      } else {
+        setShowInputs(false);
+      }
+    }, [isVisible]);
 
     return (
         <>
@@ -83,50 +96,50 @@ export default function WorkInfo({ workInfo, setWorkInfo }) {
               <div className="input-block-title">Work Information</div>
               <span className="toggle-visibility" onClick={handleVisibleChange}>{ isVisible ? 'Hide' : 'Show' }</span>
             </div>
-            {workInfo.map((job, index) => (
-              <div key={job.id} className="inputs-block" style={{ display: isVisible ? 'flex' : 'none' }}>
-                <InfoInput 
-                  id={`employer-${index}`}
-                  label="Employer:"
-                  disabled={!editMode}
-                  onChange={(value) => handleChanges(index, 'employer', value)}
-                />
-                <InfoInput 
-                  id={`title-${index}`}
-                  label="Title:"
-                  disabled={!editMode}
-                  onChange={(value) => handleChanges(index, 'title', value)}
-                />
-                <InfoInput 
-                  id={`startDate-${index}`}
-                  label="Start Date:"
-                  disabled={!editMode}
-                  onChange={(value) => handleChanges(index, 'startDate', value)}
-                />
-                <InfoInput 
-                  id={`endDate-${index}`}
-                  label="End Date:"
-                  disabled={!editMode}
-                  onChange={(value) => handleChanges(index, 'endDate', value)}
-                />
-                <div className="job-description-text-area">
-                  <label htmlFor={`job-description-${index}`}>Description:</label>
-                  <textarea 
-                    type="text" 
-                    name="job-description" 
-                    id={`job-description-${index}`} 
-                    maxLength="150"
+            <div className="input-component" style={{ maxHeight: isVisible ? '100vh' : '0px', overflow: showInputs ? 'visible' : 'hidden' }}>
+              {workInfo.map((job, index) => (
+                <div key={job.id} className="inputs-block">
+                  <InfoInput 
+                    id={`employer-${index}`}
+                    label="Employer:"
                     disabled={!editMode}
-                    onChange={(event) => handleChanges(index, 'description', event.target.value)}></textarea>
+                    onChange={(value) => handleChanges(index, 'employer', value)}
+                  />
+                  <InfoInput 
+                    id={`title-${index}`}
+                    label="Title:"
+                    disabled={!editMode}
+                    onChange={(value) => handleChanges(index, 'title', value)}
+                  />
+                  <InfoInput 
+                    id={`startDate-${index}`}
+                    label="Start Date:"
+                    disabled={!editMode}
+                    onChange={(value) => handleChanges(index, 'startDate', value)}
+                  />
+                  <InfoInput 
+                    id={`endDate-${index}`}
+                    label="End Date:"
+                    disabled={!editMode}
+                    onChange={(value) => handleChanges(index, 'endDate', value)}
+                  />
+                  <div className="job-description-text-area">
+                    <label htmlFor={`job-description-${index}`}>Description:</label>
+                    <textarea 
+                      type="text" 
+                      name="job-description" 
+                      id={`job-description-${index}`} 
+                      maxLength="150"
+                      disabled={!editMode}
+                      onChange={(event) => handleChanges(index, 'description', event.target.value)}></textarea>
+                  </div>
+                  <button type="button" id="remove-work-button" onClick={() => removeWorkSection(index)}>Remove</button>
                 </div>
-                <button type="button" id="remove-work-button" onClick={() => removeWorkSection(index)}>Remove</button>
-              </div>
-            ))}
-            <div className="input-component" style={{ display: isVisible ? 'flex' : 'none' }}>
-              <div className="buttons-container work-buttons">
-                <button type="button" id="submit-work-button" className="submit-button" onClick={handleSubmit}>Submit</button>
-                <button type="button" id="edit-work-button" className="edit-button" onClick={editForm}>Edit</button>
-              </div>
+              ))}
+                <div className="buttons-container work-buttons">
+                  <button type="button" id="submit-work-button" className="submit-button" onClick={handleSubmit}>Submit</button>
+                  <button type="button" id="edit-work-button" className="edit-button" onClick={editForm}>Edit</button>
+                </div>
               <button type="button" id="add-work-button" className="add-section-button" onClick={addWorkSection}>Add Job</button>
             </div>
           </div>
